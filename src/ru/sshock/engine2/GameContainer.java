@@ -4,12 +4,13 @@ public class GameContainer implements Runnable {
 
     private Thread thread;
     private Window window;
+    private Renderer renderer;
 
     private boolean running = false;
     private final double UPDATE_CAP = 1.0 / 120.0;
 
     private int width = 320, height = 240;
-    private float scale = 1f;
+    private float scale = 4f;
     private String title = "MajEngine v1.0";
 
     public GameContainer() {
@@ -18,6 +19,7 @@ public class GameContainer implements Runnable {
     public void start() {
 
         window = new Window(this);
+        renderer = new Renderer(this);
 
         thread = new Thread(this);
         thread.run();
@@ -72,6 +74,7 @@ public class GameContainer implements Runnable {
 
             if (render) {
                 //TODO: Render game
+                renderer.clear();
                 window.update();
                 frames++;
             } else {
@@ -125,5 +128,9 @@ public class GameContainer implements Runnable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Window getWindow() {
+        return this.window;
     }
 }
